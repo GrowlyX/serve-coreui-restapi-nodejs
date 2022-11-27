@@ -4,10 +4,13 @@ const app = express()
 const rateLimit = require('express-rate-limit')
 const path = require('path')
 
-const {findAllSensorData} = require("./database");
-const {config} = require("./config");
+const {findAllSensorData, loadMongo} = require("./database");
+const {loadConfig} = require("./config");
 
 const run = () => {
+    const config = loadConfig()
+    loadMongo()
+
     const port = config.webserver.port
 
     // Configure rate limiter (if enabled)
@@ -31,6 +34,13 @@ const run = () => {
         app.use(rateLimiter);
     }
 
+    // Configure API routes
+    app.get('/api/sensors', (req, res) => {
+        findAllSensorData(
+            (docs) => { res.send(docs) }
+        )
+    })
+
     // Configure serve React
     app.use(express.static(path.join(__dirname, 'build')));
 
@@ -40,13 +50,6 @@ const run = () => {
         // Serve built React content
         res.sendFile(path.join(__dirname, 'build', 'index.html'));
     });
-
-    // Configure API routes
-    app.get('/api/sensors', (req, res) => {
-        findAllSensorData(
-            (docs) => { res.send(docs) }
-        )
-    })
 
     console.log(`listening on ${port}`)
     app.listen(port)

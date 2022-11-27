@@ -1,18 +1,18 @@
 const fs = require("fs")
-const configPath = "config.example.json"
+const configPath = "config.json"
 
-let config
+const loadConfig = () => {
+    return JSON.parse(
+        fs
+            .readFileSync(configPath)
+            .toString()
+    )
+}
 
 const generateConfig = (callback) => {
     // check if config already exists, if it does, cancel.
     try {
         if (fs.existsSync(configPath)) {
-            config = JSON.parse(
-                fs
-                    .readFileSync(configPath)
-                    .toString()
-            )
-
             //exists
             if (callback)
                 callback()
@@ -22,10 +22,7 @@ const generateConfig = (callback) => {
         // declare default values
         const defaultValues = {
             "database": {
-                "host": "localhost",
-                "port": "27017",
-                "username": "admin",
-                "password": "",
+                "uri": "mongodb://localhost:27017/",
                 "dbname": "sensors",
                 "collection": "realtime"
             },
@@ -41,12 +38,6 @@ const generateConfig = (callback) => {
             configPath, JSON.stringify(defaultValues, null, 4)
         )
 
-        config = JSON.parse(
-            fs
-                .readFileSync(configPath)
-                .toString()
-        )
-
         if (callback)
             callback()
     } catch (err) {
@@ -55,5 +46,5 @@ const generateConfig = (callback) => {
 }
 
 module.exports = {
-    generateConfig, configPath, config
+    generateConfig, configPath, loadConfig
 }
