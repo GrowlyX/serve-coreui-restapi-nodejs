@@ -1,0 +1,12 @@
+{
+  "database": {
+    "uri": "mongodb://localhost:27017/",
+    "dbname": "sensors",
+    "collection": "realtime"
+  },
+  "webserver": {
+    "port": "80",
+    "limit": 60,
+    "rateLimit": false
+  }
+}
