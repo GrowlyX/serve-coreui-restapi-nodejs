@@ -1,0 +1,20 @@
+{
+  "name": "serve-coreui-restapi-nodejs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "assert": "^2.0.0",
+    "express": "^4.18.2",
+    "express-rate-limit": "^5.2.3",
+    "mongodb": "^4.12.1",
+    "ms": "^2.1.3",
+    "redis": "^4.5.1"
+  }
+}
