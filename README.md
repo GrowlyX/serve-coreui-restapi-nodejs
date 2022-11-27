@@ -1,5 +1,5 @@
 # Node.JS serve React content and API routes
-Serves production-built React content as well as a REST api within the same Node.JS application.
+Serve production-ready React content and API routes within the same Node.JS application.
 
 ## Requirements
 - MongoDB server running on `27017`
