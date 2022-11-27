@@ -20,30 +20,22 @@ client
         console.log("Failed to connect to MongoDB: " + err)
     })
 
-const getSensorDataNoRestrictions = (callback) => {
+const findAllSensorData = (callback) => {
     collection.findOne({})
         .then((docs) => {
-            if (docs == null) {
+            if (docs == null || docs.length === 0) {
                 callback({
                     "status": 204,
-                    "error": "No data found! [1]"
+                    "error": "No data found!"
                 })
                 return
             }
 
-            if (docs.length !== 0) {
-                if (callback)
-                    callback(docs);
-            } else {
-                if (callback)
-                    callback({
-                        "status": 200,
-                        "error": "No data found!"
-                    })
-            }
+            if (callback)
+                callback(docs);
         })
 }
 
 module.exports = {
-    getSensorDataNoRestrictions
+    findAllSensorData
 }

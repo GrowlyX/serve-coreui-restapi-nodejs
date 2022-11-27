@@ -23,7 +23,8 @@ const generateConfig = (callback) => {
             },
             "webserver": {
                 "port": "80",
-                "limit": 60
+                "limit": 60,
+                "rateLimit": false
             }
         }
 
