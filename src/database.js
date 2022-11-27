@@ -1,10 +1,5 @@
-const fs = require("fs")
 const {MongoClient} = require('mongodb');
-const {configPath} = require("./config");
-
-const config = JSON.parse(
-    fs.readFileSync(configPath).toString()
-)
+const {config} = require("./config");
 
 const client = new MongoClient(
     "mongodb://localhost:27017/"

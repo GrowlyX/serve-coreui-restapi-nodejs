@@ -1,10 +1,18 @@
 const fs = require("fs")
 const configPath = "config.example.json"
 
+let config
+
 const generateConfig = (callback) => {
     // check if config already exists, if it does, cancel.
     try {
         if (fs.existsSync(configPath)) {
+            config = JSON.parse(
+                fs
+                    .readFileSync(configPath)
+                    .toString()
+            )
+
             //exists
             if (callback)
                 callback()
@@ -12,7 +20,7 @@ const generateConfig = (callback) => {
         }
 
         // declare default values
-        const config = {
+        const defaultValues = {
             "database": {
                 "host": "localhost",
                 "port": "27017",
@@ -30,7 +38,13 @@ const generateConfig = (callback) => {
 
         // write them
         fs.writeFileSync(
-            configPath, JSON.stringify(config, null, 4)
+            configPath, JSON.stringify(defaultValues, null, 4)
+        )
+
+        config = JSON.parse(
+            fs
+                .readFileSync(configPath)
+                .toString()
         )
 
         if (callback)
@@ -41,5 +55,5 @@ const generateConfig = (callback) => {
 }
 
 module.exports = {
-    generateConfig, configPath
+    generateConfig, configPath, config
 }

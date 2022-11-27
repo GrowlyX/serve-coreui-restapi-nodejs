@@ -1,16 +1,11 @@
-const fs = require('fs')
 const express = require('express')
 const app = express()
-const rateLimit = require('express-rate-limit')
-const {configPath} = require("./config");
-const path = require('path')
-const {findAllSensorData} = require("./database");
 
-const config = JSON.parse(
-    fs
-        .readFileSync(configPath)
-        .toString()
-)
+const rateLimit = require('express-rate-limit')
+const path = require('path')
+
+const {findAllSensorData} = require("./database");
+const {config} = require("./config");
 
 const run = () => {
     const port = config.webserver.port
